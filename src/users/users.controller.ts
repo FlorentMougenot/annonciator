@@ -30,8 +30,8 @@ export class UsersController {
     return this.usersService.updateByUUID(uuid, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @Delete(':uuid')
+  public deleteUserByUUID(@Param('uuid') uuid: string) {
+    return this.usersService.deleteUserByUUID(uuid);
   }
 }
