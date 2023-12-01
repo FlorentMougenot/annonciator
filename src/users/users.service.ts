@@ -9,13 +9,16 @@ export class UsersService {
   constructor (private readonly prisma : PrismaService){}
 
   public async create(createUserDto: CreateUserDto) {
-    const newUser = await this.prisma.users.create({
+    const newUser = new NormalizedAnswer(
+      `User ${createUserDto.pseudo} has been created`,
+    await this.prisma.users.create({
       data: {
         Pseudo: createUserDto.pseudo,
         Mail: createUserDto.mail,
       },
-    });
-    return newUser;
+    }),
+    );
+    return newUser.toJSON();
   }
 
   findAll() {
@@ -31,7 +34,7 @@ export class UsersService {
       },
     }),
     );
-    return trackUser;
+    return trackUser.toJSON();
   }
 
   public async updateByUUID(uuid: string, updateUserDto: UpdateUserDto) {
@@ -47,7 +50,7 @@ export class UsersService {
       },
     }),
     );
-    return updatedUser;
+    return updatedUser.toJSON();
   }
 
   public async deleteUserByUUID (uuid : string){
@@ -59,6 +62,6 @@ export class UsersService {
       },
     }),
     );
-    return deleteUser;
+    return deleteUser.toJSON();
   }
 }
