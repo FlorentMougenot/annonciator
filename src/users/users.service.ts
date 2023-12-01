@@ -6,8 +6,15 @@ import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class UsersService {
   constructor (private readonly prisma : PrismaService){}
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+
+  public async create(createUserDto: CreateUserDto) {
+    const newUser = await this.prisma.users.create({
+      data: {
+        Pseudo: createUserDto.pseudo,
+        Mail: createUserDto.mail,
+      },
+    });
+    return newUser;
   }
 
   findAll() {
