@@ -1,1 +1,4 @@
-export class CreateUserDto {}
+export class CreateUserDto {
+    pseudo : string;
+    mail : string;
+}
