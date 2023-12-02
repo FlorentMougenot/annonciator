@@ -8,6 +8,6 @@ async function bootstrap() {
   await app.listen(3000);
 }
 function appConfig(app:INestApplication) {
-  app.useGlobalPipes (new ValidationPipe());
+  app.useGlobalPipes (new ValidationPipe({ transform : true }));
 }
 bootstrap();
