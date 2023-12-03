@@ -42,4 +42,9 @@ export class UsersController {
   public deleteUserByUUID(@Param('uuid') uuid: string) {
     return this.usersService.deleteUserByUUID(uuid);
   }
+
+  @Delete(':uuid/products')
+  public deleteProductsByUserUUID(@Param('uuid') uuid: string) {
+    return this.productsService.deleteProductsByUserUUID(uuid);
+  }
 }
