@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 import NormalizedResponse from 'src/normalized_answer';
 
 @Injectable()
@@ -31,6 +32,21 @@ export class ProductService {
       await this.prisma.products.findUnique({
         where: {
           UUID: uuid,
+        },
+      }),
+    ).toJSON();
+  }
+  public async updateByUUID(uuid: string, updateProductDto: UpdateProductDto) {
+    return new NormalizedResponse(
+      `Product for '${uuid}' uuid has been updated`,
+      await this.prisma.products.update({
+        where: {
+          UUID: uuid,
+        },
+        data: {
+          Name: updateProductDto.name,
+          Description: updateProductDto.description,
+          Price: updateProductDto.price,
         },
       }),
     ).toJSON();
