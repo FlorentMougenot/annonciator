@@ -36,6 +36,20 @@ export class ProductService {
       }),
     ).toJSON();
   }
+
+  public async getProductsByUserUUID(userUUID: string) {
+    return new NormalizedResponse(
+      `Products of user '${userUUID}' uuid has been found`,
+      await this.prisma.products.findMany({
+        where: {
+          Author: {
+            UUID: userUUID,
+          },
+        },
+      }),
+    ).toJSON();
+  }
+  
   public async updateByUUID(uuid: string, updateProductDto: UpdateProductDto) {
     return new NormalizedResponse(
       `Product for '${uuid}' uuid has been updated`,
