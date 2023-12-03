@@ -7,10 +7,6 @@ import NormalizedResponse from 'src/normalized_answer';
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
-  getProducts(): string[] {
-    return ['Moto', 'Vélo', 'Voiture'];
-  }
-
   public async create(createProductDto: CreateProductDto) {
     return new NormalizedResponse(
       `Product ${createProductDto.name} has been registered`,
@@ -24,6 +20,17 @@ export class ProductService {
               UUID: createProductDto.owner_uuid,
             },
           },
+        },
+      }),
+    ).toJSON();
+  }
+
+  public async getByUUID(uuid: string) {
+    return new NormalizedResponse(
+      `Product for '${uuid}' uuid has been found`,
+      await this.prisma.products.findUnique({
+        where: {
+          UUID: uuid,
         },
       }),
     ).toJSON();
