@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -21,5 +21,9 @@ export class ProductController {
     @Body() updateProductDto: UpdateProductDto,
   ) {
     return this.productService.updateByUUID(uuid, updateProductDto);
+  }
+    @Delete(':uuid')
+  public deleteByUUID(@Param('uuid') uuid: string) {
+    return this.productService.deleteByUUID(uuid);
   }
 }

@@ -51,4 +51,10 @@ export class ProductService {
       }),
     ).toJSON();
   }
+  public async deleteByUUID(uuid: string) {
+    return new NormalizedResponse(
+      `Product for '${uuid} has been deleted'`,
+      await this.prisma.products.delete({ where: { UUID: uuid } }),
+    ).toJSON();
+  }
 }
